@@ -46,7 +46,7 @@ class MainProvideModule {
 
     @Provides
     @ActivityScoped
-    fun providePresenterSave(wizzardSave: WizzardSave, urlParseManager: UrlParseManager, context: Context): PresenterSave = PresenterSave(wizzardSave, urlParseManager, context)
+    fun providePresenterSave(wizzardSave: WizzardSave, context: Context): PresenterSave = PresenterSave(wizzardSave, context)
 
     @Provides
     @ActivityScoped
@@ -55,9 +55,4 @@ class MainProvideModule {
             fragmentMain: Lazy<FragmentMain>,
             fragmentSave: Lazy<FragmentSave>):
             MainFragmentHolder = MainFragmentHolder(watchlistFragment, fragmentMain, fragmentSave)
-
-
-    @Provides
-    @ActivityScoped
-    fun provideUrlParseManager(): UrlParseManager = UrlParseManager()
 }

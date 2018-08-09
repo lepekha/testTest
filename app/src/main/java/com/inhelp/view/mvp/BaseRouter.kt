@@ -1,10 +1,9 @@
 package com.inhelp.view.mvp
 
-import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatDialogFragment
+import android.support.v4.app.FragmentTransaction
 
 
 abstract class BaseRouter(private val fragmentManager: FragmentManager) {
@@ -17,7 +16,7 @@ abstract class BaseRouter(private val fragmentManager: FragmentManager) {
         checkNotNull(fragment)
         val transaction = fragmentManager.beginTransaction()
 //        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-//        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         transaction.replace(container, fragment)
         if (addToBackStack) {
             transaction.addToBackStack(fragment.tag)

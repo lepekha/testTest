@@ -3,8 +3,6 @@ package com.inhelp.view.mvp
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
-import android.support.v7.widget.Toolbar
-import android.widget.TextView
 import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 

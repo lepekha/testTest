@@ -1,27 +1,40 @@
 package com.inhelp.view.main.save
 
 import android.Manifest
-import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
-import com.inhelp.core.models.UrlParseManager
-import com.inhelp.view.mvp.BaseMvpPresenterImpl
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
+import com.inhelp.core.models.UrlParseManager
+import com.inhelp.core.models.services.ServiceSavePhoto
 import com.inhelp.utils.PhotoUtils
+import com.inhelp.utils.extension.getClipboard
+import com.inhelp.view.mvp.BaseMvpPresenterImpl
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 
-class PresenterSave @Inject constructor(private val wizzardSave: WizzardSave, private val urlParseManager: UrlParseManager, private val context: Context) : BaseMvpPresenterImpl<ViewSave>() {
+class PresenterSave @Inject constructor(private val wizzardSave: WizzardSave, private val context: Context) : BaseMvpPresenterImpl<ViewSave>() {
 
-    private var mClipboard: String = ""
+    private lateinit var mIntentSaveService: Intent
+
+    override fun attachView(view: ViewSave) {
+        super.attachView(view)
+        mIntentSaveService = Intent(context, ServiceSavePhoto::class.java)
+        context.startService(mIntentSaveService)
+    }
+
+    override fun detachView() {
+        super.detachView()
+        context.stopService(mIntentSaveService)
+    }
 
     fun onViewCreated() {
         getPhoto()
@@ -31,14 +44,9 @@ class PresenterSave @Inject constructor(private val wizzardSave: WizzardSave, pr
         wizzardSave.back()
     }
 
-    private fun getClipBoardText(){
-        val clipboard = context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        mClipboard = clipboard.primaryClip.getItemAt(0).text.toString()
-    }
 
     fun getPhoto(){
-        getClipBoardText()
-        urlParseManager.getPhoto(mClipboard)
+        UrlParseManager.getPhoto(context.getClipboard())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { it ->

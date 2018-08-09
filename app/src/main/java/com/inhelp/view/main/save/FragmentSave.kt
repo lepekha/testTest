@@ -1,14 +1,10 @@
 package com.inhelp.view.main.save
 
-import android.app.Activity
-import android.content.ClipboardManager
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.inhelp.R
-import com.inhelp.view.main.MainActivity
 import com.inhelp.view.mvp.BaseMvpFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -23,7 +19,6 @@ class FragmentSave @Inject constructor() : BaseMvpFragment<ViewSave, PresenterSa
     @Inject
     override
     lateinit var presenter: PresenterSave
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_save, container, false)

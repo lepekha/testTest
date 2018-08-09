@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="main_indicator_color">#212121</color>
     <color name="main_title">#212121</color>
+    <color name="main_background">#212121</color>
 </resources>
