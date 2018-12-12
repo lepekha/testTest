@@ -1,7 +1,7 @@
 package com.inhelp.di.modules.main
 
 import android.content.Context
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.inhelp.core.models.UrlParseManager
 import com.inhelp.di.scopes.ActivityScoped
 import com.inhelp.view.main.MainActivity
@@ -30,11 +30,11 @@ class MainProvideModule {
 
     @Provides
     @ActivityScoped
-    fun provideMainRouter(fragmentManager: FragmentManager, context: Context, mainFragmentHolder: MainFragmentHolder): MainRouter = MainRouter(fragmentManager, context, mainFragmentHolder)
+    fun provideMainRouter(fragmentManager: androidx.fragment.app.FragmentManager, context: Context, mainFragmentHolder: MainFragmentHolder): MainRouter = MainRouter(fragmentManager, context, mainFragmentHolder)
 
     @Provides
     @ActivityScoped
-    fun provideFragmentManager(activity: MainActivity): FragmentManager = activity.supportFragmentManager
+    fun provideFragmentManager(activity: MainActivity): androidx.fragment.app.FragmentManager = activity.supportFragmentManager
 
     @Provides
     @ActivityScoped

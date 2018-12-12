@@ -2,7 +2,7 @@ package com.inhelp.view.mvp
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import android.widget.Toast
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -37,7 +37,7 @@ abstract class BaseMvpActivity<in V : BaseMvpView, out T : BaseMvpPresenter<V>> 
     }
 
 
-    override fun getCurrentActivity(): FragmentActivity {
+    override fun getCurrentActivity(): androidx.fragment.app.FragmentActivity {
         return this
     }
 

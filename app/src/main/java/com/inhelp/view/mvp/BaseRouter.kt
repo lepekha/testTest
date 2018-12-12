@@ -1,22 +1,22 @@
 package com.inhelp.view.mvp
 
-import android.support.annotation.NonNull
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import androidx.annotation.NonNull
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 
 
-abstract class BaseRouter(private val fragmentManager: FragmentManager) {
+abstract class BaseRouter(private val fragmentManager: androidx.fragment.app.FragmentManager) {
     abstract fun showStartScreen()
 
     protected var currentStep: BaseMvpView? = null
 
-    fun navigateTo(@NonNull fragment: Fragment, container: Int, addToBackStack: Boolean = true) {
+    fun navigateTo(@NonNull fragment: androidx.fragment.app.Fragment, container: Int, addToBackStack: Boolean = true) {
         checkNotNull(fragmentManager)
         checkNotNull(fragment)
         val transaction = fragmentManager.beginTransaction()
 //        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         transaction.replace(container, fragment)
         if (addToBackStack) {
             transaction.addToBackStack(fragment.tag)

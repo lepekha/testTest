@@ -1,14 +1,14 @@
 package com.inhelp.view.mvp
 
 import android.content.Context
-import android.support.annotation.StringRes
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentActivity
 
 interface BaseMvpView {
 
     fun getCurrentContext(): Context
 
-    fun getCurrentActivity(): FragmentActivity
+    fun getCurrentActivity(): androidx.fragment.app.FragmentActivity
 
     fun showError(error: String?)
 
