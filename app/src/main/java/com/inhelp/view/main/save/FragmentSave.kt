@@ -9,16 +9,15 @@ import com.inhelp.view.mvp.BaseMvpFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_save.*
-import java.lang.Exception
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-class FragmentSave @Inject constructor() : BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
+
+class FragmentSave constructor() : BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
     override fun backPress() {
     }
 
-    @Inject
-    override
-    lateinit var presenter: PresenterSave
+
+    override val presenter: PresenterSave by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_save, container, false)

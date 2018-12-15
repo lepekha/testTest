@@ -5,20 +5,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ClipboardManager
-import android.content.Intent
-import android.os.IBinder
-import com.inhelp.utils.extension.getClipboard
-import com.inhelp.utils.extension.toast
-import dagger.android.DaggerIntentService
-import dagger.android.DaggerService
-import android.widget.Toast
-import android.content.ClipboardManager.OnPrimaryClipChangedListener
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
-import com.inhelp.core.models.UrlParseManager
+import android.os.IBinder
+import com.inhelp.utils.extension.getClipboard
 import com.inhelp.utils.extension.notification
 import com.inhelp.utils.extension.notificationManager
+import com.inhelp.view.customView.NewMessageNotification
 import com.inhelp.view.main.MainActivity
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
@@ -38,7 +33,7 @@ class ServiceSavePhoto : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mCM = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         mCM.addPrimaryClipChangedListener {
-            val newClip = mCM.primaryClip.getItemAt(0).text.toString()
+            val newClip = this.getClipboard()
             doAsync {
                 onCopy(newClip)
             }.execute()
@@ -55,7 +50,9 @@ class ServiceSavePhoto : Service() {
         }
         val bmp = Picasso.get().load(url).get()
         val contentIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java).putExtra("fragment",1), PendingIntent.FLAG_UPDATE_CURRENT)
-        applicationContext.notification("Save photo", url, contentIntent, bmp, CHANNEL_ID)
+        NewMessageNotification.notify(this, "Save Photo", 1)
+
+//        applicationContext.notification("Save photo", url, contentIntent, bmp, CHANNEL_ID)
     }
 
     override fun onCreate() {

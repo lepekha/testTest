@@ -1,30 +1,57 @@
 package com.inhelp.view.main
 
-import android.content.Context
-import androidx.fragment.app.Fragment
+import androidx.annotation.NonNull
 import androidx.fragment.app.FragmentManager
 import com.inhelp.R
+import com.inhelp.view.main.main.FragmentMain
 import com.inhelp.view.main.main.WizzardMain
+import com.inhelp.view.main.save.FragmentSave
 import com.inhelp.view.main.save.WizzardSave
+import com.inhelp.view.main.watchlist.WatchlistFragment
 import com.inhelp.view.main.watchlist.WatchlistWizzard
-import com.inhelp.view.mvp.BaseRouter
-import javax.inject.Inject
 
-class MainRouter @Inject constructor(val fragmentManager: androidx.fragment.app.FragmentManager, val context: Context, private var fragmentHolder: MainFragmentHolder) :
-        BaseRouter(fragmentManager = fragmentManager), WatchlistWizzard, WizzardMain, WizzardSave {
+
+class MainRouter: WatchlistWizzard, WizzardMain, WizzardSave {
 
     private val container: Int = R.id.container
 
-    override fun showStartScreen() {
-        navigateTo(fragmentHolder.fragmentMain.get(), container)
+    lateinit var fragmentManager: FragmentManager
+
+    fun showStartScreen() {
+        navigateTo(FragmentMain(), container)
     }
 
     fun goToRootWatchlist() {
 //        clearBackStack()
-//        navigateTo(fragmentHolder.watchlistFragment.get(), container)
+        navigateTo(WatchlistFragment(), container)
     }
 
     override fun goToSave() {
-        navigateTo(fragmentHolder.fragmentSave.get(), container)
+        navigateTo(FragmentSave(), container)
+    }
+
+    fun navigateTo(@NonNull fragment: androidx.fragment.app.Fragment, container: Int, addToBackStack: Boolean = true) {
+        val transaction = fragmentManager.beginTransaction()
+//        transaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+        transaction.setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.replace(container, fragment)
+        if (addToBackStack) {
+            transaction.addToBackStack(fragment.tag)
+        }
+        transaction.commit()
+    }
+
+
+    fun clearBackStack() {
+        val fragmentManager = fragmentManager
+        while (fragmentManager.backStackEntryCount != 0) {
+            fragmentManager.popBackStackImmediate()
+        }
+    }
+
+    override fun back() {
+        if (fragmentManager.backStackEntryCount > 1) {
+            fragmentManager.popBackStack()
+        }
     }
 }

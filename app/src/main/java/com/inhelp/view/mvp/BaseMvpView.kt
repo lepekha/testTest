@@ -2,7 +2,6 @@ package com.inhelp.view.mvp
 
 import android.content.Context
 import androidx.annotation.StringRes
-import androidx.fragment.app.FragmentActivity
 
 interface BaseMvpView {
 

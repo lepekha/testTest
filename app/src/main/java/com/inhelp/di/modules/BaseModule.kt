@@ -1,1 +1,0 @@
-package com.inhelp.di.modulesimport dagger.Module@Moduleclass BaseModule {//    @Provides//    fun provideLocalStorage(context: Context) = LocalStorage(context)}

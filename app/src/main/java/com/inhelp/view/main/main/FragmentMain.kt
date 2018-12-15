@@ -1,24 +1,23 @@
 package com.inhelp.view.main.main
 
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.transition.AutoTransition
-import androidx.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.inhelp.R
 import com.inhelp.view.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_main.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
-class FragmentMain @Inject constructor() : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
+
+class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
     override fun backPress() {
     }
 
-    @Inject
-    override
-    lateinit var presenter: PresenterMain
+    override val presenter: PresenterMain by inject()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,6 +36,10 @@ class FragmentMain @Inject constructor() : BaseMvpFragment<ViewMain, PresenterMa
 
         btnSave.setOnClickListener{
             presenter.goToSave()
+        }
+
+        btnSave2.setOnClickListener{
+            presenter.goToWatchlist()
         }
 
 

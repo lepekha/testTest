@@ -2,8 +2,6 @@ package com.inhelp.view.mvp
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
 
 abstract class BaseMvpFragment<in V : BaseMvpView, out T : BaseMvpPresenter<V>> : androidx.fragment.app.DialogFragment(), BaseMvpView {
 

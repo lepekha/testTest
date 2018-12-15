@@ -1,16 +1,15 @@
 package com.inhelp.view.main
 
-import androidx.fragment.app.Fragment
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
-import javax.inject.Inject
 
 
-class MainPresenter @Inject constructor(private val router: MainRouter) : BaseMvpPresenterImpl<MainView>() {
+class MainPresenter constructor(val router: MainRouter) : BaseMvpPresenterImpl<MainView>() {
 
     private var mCurrentFragment: androidx.fragment.app.Fragment? = null
 
     override fun attachView(view: MainView) {
         super.attachView(view)
+        router.fragmentManager = (view.getCurrentActivity() as MainActivity).supportFragmentManager
         router.showStartScreen()
     }
 

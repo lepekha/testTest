@@ -2,11 +2,10 @@ package com.inhelp.view.mvp
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import android.widget.Toast
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseMvpActivity<in V : BaseMvpView, out T : BaseMvpPresenter<V>> : DaggerAppCompatActivity(), BaseMvpView {
+abstract class BaseMvpActivity<in V : BaseMvpView, out T : BaseMvpPresenter<V>> : AppCompatActivity(), BaseMvpView {
 
     protected abstract val presenter: T
 

@@ -1,14 +1,13 @@
 package com.inhelp.view.main.save
 
 import android.Manifest
-import android.content.ClipboardManager
 import android.content.Context
-import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import com.inhelp.core.models.UrlParseManager
 import com.inhelp.core.models.services.ServiceSavePhoto
 import com.inhelp.utils.PhotoUtils
 import com.inhelp.utils.extension.getClipboard
+import com.inhelp.view.main.MainRouter
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -18,10 +17,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 
-class PresenterSave @Inject constructor(private val wizzardSave: WizzardSave, private val context: Context) : BaseMvpPresenterImpl<ViewSave>() {
+class PresenterSave constructor(private val mainRouter: MainRouter, private val context: Context) : BaseMvpPresenterImpl<ViewSave>() {
 
     private lateinit var mIntentSaveService: Intent
 
@@ -41,7 +39,7 @@ class PresenterSave @Inject constructor(private val wizzardSave: WizzardSave, pr
     }
 
     override fun onBackPress() {
-        wizzardSave.back()
+        mainRouter.back()
     }
 
 
