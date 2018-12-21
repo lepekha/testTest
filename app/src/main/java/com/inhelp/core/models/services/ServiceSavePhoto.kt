@@ -17,9 +17,26 @@ import com.inhelp.view.customView.NewMessageNotification
 import com.inhelp.view.main.MainActivity
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
+import android.content.BroadcastReceiver
+import com.inhelp.utils.extension.saveBitmap
+import com.inhelp.view.customView.reply.RectangleReplyStyleImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import android.content.IntentFilter
+
+
 
 
 class ServiceSavePhoto : Service() {
+
+    companion object {
+        const val ACTION_SAVE_PHOTO = "action_save_photo"
+
+        private val CHANNEL_ID = "default"
+        private val MAX_NOTIFICATION = 5
+        private val MAIL_ID = 1
+    }
 
     class doAsync(val handler: () -> Unit) : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg params: Void?): Void? {
@@ -50,14 +67,27 @@ class ServiceSavePhoto : Service() {
         }
         val bmp = Picasso.get().load(url).get()
         val contentIntent = PendingIntent.getActivity(this, 0, Intent(this, MainActivity::class.java).putExtra("fragment",1), PendingIntent.FLAG_UPDATE_CURRENT)
-        NewMessageNotification.notify(this, "Save Photo", 1)
+        NewMessageNotification.notify(this, "Save Photo", 1, bmp)
 
 //        applicationContext.notification("Save photo", url, contentIntent, bmp, CHANNEL_ID)
     }
 
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            if (action == ServiceSavePhoto.ACTION_SAVE_PHOTO) {
+                GlobalScope.launch(Dispatchers.Main) {
+//                    context.saveBitmap(UrlParseManager.getPhoto(context.getClipboard()).await())
+                }
+            }
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
-
+        val filter = IntentFilter()
+        filter.addAction(ServiceSavePhoto.ACTION_SAVE_PHOTO)
+        registerReceiver(receiver, filter)
 //        baseContext.toast(baseContext.getClipboard())
 //        initChannels(applicationContext)
 //        compositeDisposable = CompositeDisposable()
@@ -152,6 +182,7 @@ class ServiceSavePhoto : Service() {
 
     override fun onDestroy() {
         mCM.addPrimaryClipChangedListener(null)
+        unregisterReceiver(receiver)
 //        compositeDisposable.dispose()
     }
 
@@ -169,9 +200,4 @@ class ServiceSavePhoto : Service() {
 //        }
 //    }
 //
-    companion object {
-        private val CHANNEL_ID = "default"
-        private val MAX_NOTIFICATION = 5
-        private val MAIL_ID = 1
-    }
 }

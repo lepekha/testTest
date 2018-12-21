@@ -1,18 +1,21 @@
 package com.inhelp.view.main.save
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.inhelp.R
 import com.inhelp.view.mvp.BaseMvpFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_save.*
 import org.koin.android.ext.android.inject
+import java.lang.Exception
 
 
-class FragmentSave constructor() : BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
+class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
     override fun backPress() {
     }
 
@@ -25,43 +28,55 @@ class FragmentSave constructor() : BaseMvpFragment<ViewSave, PresenterSave>(), V
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.onViewCreated()
-        imgPhoto.isDrawingCacheEnabled = true
+
         btnAdd.setOnClickListener {
             presenter.getPhoto()
             groupError.visibility = View.GONE
             pgLoad.visibility = View.VISIBLE
         }
-        btnBack.setOnClickListener {
+        titleSave.setOnClickListener {
             presenter.onBackPress()
         }
-        btnSave.setOnClickListener {
+        btnSaveThis.setOnClickListener {
             presenter.getPermissionAndSavePhoto()
         }
+
+        lstPreview.layoutManager = LinearLayoutManager(getCurrentContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        presenter.getPhoto()
     }
 
-    override fun getImageChache() = imgPhoto.drawingCache
+    override fun share(bit: Bitmap) {
 
+    }
 
-    override fun setPhoto(url: String){
-        Picasso.get().load(url).into(imgPhoto, object: Callback{
+    override fun setPreviewPhotos(items: ArrayList<String>){
+        lstPreview.adapter = PreviewRvAdapter(items, getCurrentContext()){
+            presenter.pressPreviewItem(it)
+        }
+
+        btnSaveAll.visibility = View.VISIBLE
+    }
+
+    override fun setPhoto(imageUrl: String) {
+        Picasso.get().load(imageUrl).into(imgPhoto, object : Callback {
             override fun onSuccess() {
                 pgLoad.visibility = View.GONE
                 imgPhoto.visibility = View.VISIBLE
-                btnSave.visibility = View.VISIBLE
+                btnSaveThis.visibility = View.VISIBLE
             }
 
             override fun onError(e: Exception?) {}
         })
+//        imgPhoto.setImageBitmap(image)
+
     }
 
 
-    override fun showError(){
+    override fun showError() {
         pgLoad.visibility = View.GONE
         groupError.visibility = View.VISIBLE
     }
-
-
 
 
 }

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/btnAdd"
@@ -18,41 +16,35 @@
         app:srcCompat="@drawable/ic_round_add_24px" />
 
     <TextView
-        android:id="@+id/titleSave"
-        android:text="Save"
+        android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_menu_save"
+        android:transitionName="elementRepost"
+        android:background="@drawable/btn_menu_repost"
         android:drawableStart="@drawable/ic_round_navigate_before_24px"
         android:gravity="center"
         android:paddingEnd="35dp"
+        android:text="Reply"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:transitionName="elementSave"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lstPreview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleSave" />
 
     <ImageView
         android:id="@+id/imgPhoto"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnSaveThis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstPreview"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintTop_toBottomOf="@+id/actionBar"
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/pgLoad"
@@ -60,50 +52,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:visibility="visible"
         app:indicatorColor="@color/main_indicator_color"
         app:indicatorName="BallGridPulseIndicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/actionBar" />
 
     <Button
-        android:id="@+id/btnSaveAll"
-        android:layout_width="0dp"
+        android:id="@+id/btnSaveThis"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_menu_save_round"
+        android:background="@drawable/btn_rect_round"
+        android:drawableTop="@drawable/ic_round_save_24px"
         android:elevation="1dp"
-        android:text="Save All"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="Repost"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/btnSaveThis"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_menu_save_round"
-        android:elevation="1dp"
-        android:text="Save this"
-        android:textColor="#FFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveAll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/groupError"
@@ -116,8 +93,8 @@
         android:id="@+id/txtError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:text="Oops! Скопируйте ссылку\n на фото и нажмите - "
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"

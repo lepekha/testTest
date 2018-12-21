@@ -15,6 +15,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 
 import com.inhelp.R
+import com.inhelp.core.models.services.ServiceSavePhoto
 
 /**
  * Helper class for showing and canceling new message
@@ -48,7 +49,7 @@ object NewMessageNotification {
      * @see .cancel
      */
     fun notify(context: Context,
-               exampleString: String, number: Int) {
+               exampleString: String, number: Int, image: Bitmap) {
         val res = context.resources
 
         // This image is used as the notification's large icon (thumbnail).
@@ -81,7 +82,7 @@ object NewMessageNotification {
 
                 // Provide a large icon, shown with the notification in the
                 // notification drawer on devices running Android 3.0 or later.
-                .setLargeIcon(picture)
+                .setLargeIcon(image)
 
                 // Set ticker text (preview) information for this notification.
                 .setTicker(exampleString)
@@ -123,13 +124,8 @@ object NewMessageNotification {
                 .addAction(
                         R.drawable.ic_action_stat_share,
                         res.getString(R.string.action_share),
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                Intent.createChooser(Intent(Intent.ACTION_SEND)
-                                        .setType("text/plain")
-                                        .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                                PendingIntent.FLAG_UPDATE_CURRENT))
+                        PendingIntent.getBroadcast(context, 7, Intent(ServiceSavePhoto.ACTION_SAVE_PHOTO), PendingIntent.FLAG_UPDATE_CURRENT)
+                                )
                 .addAction(
                         R.drawable.ic_action_stat_reply,
                         res.getString(R.string.action_reply),

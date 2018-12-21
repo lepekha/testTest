@@ -21,7 +21,7 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main_end, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,19 +29,15 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
 
 //        btnSave.post { showComponents() }
 
-        imageView1.setOnClickListener {
 
-//            presenter.goToSave()
+
+        btnSaveThis.setOnClickListener {
+            presenter.pressSave(it)
         }
 
-        btnSave.setOnClickListener{
-            presenter.goToSave()
+        btnMenuRepost.setOnClickListener{
+            presenter.pressRepost(it)
         }
-
-        btnSave2.setOnClickListener{
-            presenter.goToWatchlist()
-        }
-
 
 
     }

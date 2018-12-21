@@ -11,6 +11,8 @@ android {
         minSdkVersion 21
         versionCode 1
         versionName "1.0"
+        resConfigs "en", "xxhdpi"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -33,9 +35,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     //noinspection GradleCompatible
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-alpha1'
     compile 'org.koin:koin-android:1.0.2'

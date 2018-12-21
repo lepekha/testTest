@@ -6,8 +6,4 @@ import android.provider.MediaStore
 
 object PhotoUtils {
 
-    /**Метод для сохранения загруженной фотографии на устройство */
-    fun saveCurrentPhoto(context: Context, bmp: Bitmap, photoId: String): String {
-        return MediaStore.Images.Media.insertImage(context.contentResolver, bmp, "$photoId.jpg", "drawing")
-    }
 }

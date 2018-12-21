@@ -5,10 +5,14 @@ import android.app.PendingIntent
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.inhelp.R
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -40,4 +44,19 @@ fun Context.notification(title: String, content: String, contentIntent: PendingI
 //    val mIcon = BitmapFactory.decodeStream(url_value.openConnection().getInputStream())
     notification.setLargeIcon(bitmap)
     this.notificationManager?.notify(AtomicInteger().get(), notification.build())
+}
+
+fun Context.saveBitmap(bitmap: Bitmap): String {
+    val millis = System.currentTimeMillis()
+    val seconds = millis / 1000
+    return MediaStore.Images.Media.insertImage(this.contentResolver, bitmap, "photo_$seconds.jpg", "drawing")
+}
+
+fun Context.createInstagramIntent(bitmap: Bitmap){
+    val share = Intent(Intent.ACTION_SEND)
+    share.type = "image/*"
+    val uri = Uri.parse(this.saveBitmap(bitmap))
+    share.putExtra(Intent.EXTRA_STREAM, uri)
+    share.setPackage("com.instagram.android")
+    startActivity(Intent.createChooser(share, "Share to"))
 }

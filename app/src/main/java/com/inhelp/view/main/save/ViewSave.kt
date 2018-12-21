@@ -4,7 +4,8 @@ import android.graphics.Bitmap
 import com.inhelp.view.mvp.BaseMvpView
 
 interface ViewSave : BaseMvpView {
-    fun setPhoto(url: String)
+    fun setPhoto(imageUrl: String)
     fun showError()
-    fun getImageChache(): Bitmap
+    fun share(bit: Bitmap)
+    fun setPreviewPhotos(items: ArrayList<String>)
 }
