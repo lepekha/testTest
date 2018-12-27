@@ -38,12 +38,14 @@ class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
             presenter.onBackPress()
         }
         btnSaveThis.setOnClickListener {
-            presenter.getPermissionAndSavePhoto()
+            presenter.pressSaveThis()
+        }
+
+        btnSaveAll.setOnClickListener {
+            presenter.pressSaveAll()
         }
 
         lstPreview.layoutManager = LinearLayoutManager(getCurrentContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        presenter.getPhoto()
     }
 
     override fun share(bit: Bitmap) {
@@ -78,5 +80,8 @@ class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
         groupError.visibility = View.VISIBLE
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
 }

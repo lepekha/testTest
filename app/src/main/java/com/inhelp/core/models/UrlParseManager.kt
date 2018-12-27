@@ -13,6 +13,8 @@ data class InstagramSaveData(val image: String, val arrImages: ArrayList<String>
 
 class InstagramUrlData(private val url: String) {
 
+    val isValidURL = url.contains("instagram")
+
     fun getPhoto() = GlobalScope.async {
         val doc = Jsoup.connect(url).get()
         val imageUrl = URL(doc.select("meta[property=og:image]")[0].attr("content"))

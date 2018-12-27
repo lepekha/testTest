@@ -24,7 +24,7 @@
         android:drawableStart="@drawable/ic_round_navigate_before_24px"
         android:gravity="center"
         android:paddingEnd="35dp"
-        android:text="Reply"
+        android:text="Repost photo"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"

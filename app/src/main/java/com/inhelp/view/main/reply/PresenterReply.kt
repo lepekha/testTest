@@ -5,10 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import com.inhelp.core.models.services.ServiceSavePhoto
-import com.inhelp.utils.PhotoUtils
-import com.inhelp.utils.extension.getClipboard
-import com.inhelp.utils.extension.saveBitmap
-import com.inhelp.view.customView.reply.RectangleReplyStyleImpl
 import com.inhelp.view.main.MainRouter
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
 import com.karumi.dexter.Dexter
@@ -57,7 +53,7 @@ class PresenterReply constructor(private val mainRouter: MainRouter, private val
         val seconds = millis / 1000
 
 //        view?.getImageChache()?.let {
-//            val res = PhotoUtils.saveCurrentPhoto(context, it, "photo_$seconds")
+//            val res = Utils.saveCurrentPhoto(context, it, "photo_$seconds")
 //            if(res.isNotEmpty()){
 //                onBackPress()
 //            }

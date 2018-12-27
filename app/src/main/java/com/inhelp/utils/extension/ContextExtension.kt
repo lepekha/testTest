@@ -14,6 +14,10 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.inhelp.R
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import java.net.URL
 import java.util.concurrent.atomic.AtomicInteger
 
 
@@ -46,17 +50,32 @@ fun Context.notification(title: String, content: String, contentIntent: PendingI
     this.notificationManager?.notify(AtomicInteger().get(), notification.build())
 }
 
-fun Context.saveBitmap(bitmap: Bitmap): String {
-    val millis = System.currentTimeMillis()
-    val seconds = millis / 1000
-    return MediaStore.Images.Media.insertImage(this.contentResolver, bitmap, "photo_$seconds.jpg", "drawing")
+fun Context.saveBitmap(imageUrl: String): Deferred<String> {
+    val context = this
+    return GlobalScope.async {
+        val millis = System.currentTimeMillis()
+        val seconds = millis / 1000
+        val bmp = BitmapFactory.decodeStream(URL(imageUrl).openConnection().getInputStream())
+        MediaStore.Images.Media.insertImage(context.contentResolver, bmp, "photo_$seconds.jpg", "drawing")
+    }
+}
+
+fun Context.launchApp(packageName: String) {
+    var intent = this.packageManager.getLaunchIntentForPackage(packageName)
+    if (intent == null) {
+        // Bring user to the market or let them choose an app?
+        intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=$packageName")
+    }
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    this.startActivity(intent)
 }
 
 fun Context.createInstagramIntent(bitmap: Bitmap){
-    val share = Intent(Intent.ACTION_SEND)
-    share.type = "image/*"
-    val uri = Uri.parse(this.saveBitmap(bitmap))
-    share.putExtra(Intent.EXTRA_STREAM, uri)
-    share.setPackage("com.instagram.android")
-    startActivity(Intent.createChooser(share, "Share to"))
+//    val share = Intent(Intent.ACTION_SEND)
+//    share.type = "image/*"
+//    val uri = Uri.parse(this.saveBitmap(bitmap))
+//    share.putExtra(Intent.EXTRA_STREAM, uri)
+//    share.setPackage("com.instagram.android")
+//    startActivity(Intent.createChooser(share, "Share to"))
 }

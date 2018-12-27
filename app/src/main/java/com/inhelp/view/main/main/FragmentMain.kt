@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.inhelp.R
+import com.inhelp.utils.extension.launchApp
 import com.inhelp.view.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -37,6 +38,10 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
 
         btnMenuRepost.setOnClickListener{
             presenter.pressRepost(it)
+        }
+
+        btnMenuInstagram.setOnClickListener {
+            getCurrentContext().launchApp("com.instagram.android")
         }
 
 

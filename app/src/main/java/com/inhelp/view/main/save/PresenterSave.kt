@@ -3,7 +3,11 @@ package com.inhelp.view.main.save
 import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.inhelp.core.models.InstagramUrlData
+import com.inhelp.utils.Utils
+import com.inhelp.utils.extension.saveToSD
+import com.inhelp.utils.extension.toast
 import com.inhelp.view.main.MainRouter
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
 import com.karumi.dexter.Dexter
@@ -21,9 +25,14 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
     private lateinit var mLoadedBitmap: Bitmap
 
     private lateinit var mPreviewPhotos: ArrayList<String>
+    private var mCurrentPhotoNumber: Int = 0
 
-    override fun attachView(view: ViewSave) {
-        super.attachView(view)
+    fun onResume(){
+        if(instagramUrlData.isValidURL) {
+            getPhoto()
+        }else{
+            view?.showError()
+        }
 //        mIntentSaveService = Intent(context, ServiceSavePhoto::class.java)
 //        context.startService(mIntentSaveService)
     }
@@ -37,16 +46,30 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
         mainRouter.back()
     }
 
-    fun pressPreviewItem(previewPosition: Int){
+    fun pressPreviewItem(previewPosition: Int) {
+        mCurrentPhotoNumber = previewPosition
         view?.setPhoto(mPreviewPhotos[previewPosition])
     }
 
+    fun pressSaveThis() = runBlocking {
+        val bmpToSave = Utils.loadImage(mPreviewPhotos[mCurrentPhotoNumber]).await()
+        bmpToSave.saveToSD()
+        view?.getCurrentActivity()?.toast("Photo was saved")
+    }
+
+    fun pressSaveAll() = runBlocking {
+        mPreviewPhotos.forEach {
+            val bmpToSave = Utils.loadImage(it).await()
+            bmpToSave.saveToSD()
+        }
+        view?.getCurrentActivity()?.toast("All photos was saved")
+    }
 
     fun getPhoto() = GlobalScope.launch(Dispatchers.Main) {
-//        val image = instagramUrlData.getInstagramData().await()
+        //        val image = instagramUrlData.getInstagramData().await()
         mPreviewPhotos = instagramUrlData.getPhotos().await()
 //        mLoadedBitmap = photos
-        if(mPreviewPhotos.count() > 1) view?.setPreviewPhotos(mPreviewPhotos)
+        if (mPreviewPhotos.count() > 1) view?.setPreviewPhotos(mPreviewPhotos)
         view?.setPhoto(mPreviewPhotos.first())
     }
 
