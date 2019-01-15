@@ -16,7 +16,7 @@
                 android:left="10dp"
                 android:right="10dp"
                 android:top="3dp" />
-            <corners android:radius="5dp" />
+            <corners android:radius="@dimen/menu_button_radius" />
             <solid android:color="#c5ed2f2f" />
         </shape>
     </item>

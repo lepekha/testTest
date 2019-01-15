@@ -15,8 +15,8 @@
                 android:left="10dp"
                 android:right="10dp"
                 android:top="3dp" />
-            <corners android:radius="5dp" />
-            <solid android:color="#edcd2f" />
+            <corners android:radius="@dimen/menu_button_radius" />
+            <solid android:color="#f2d2b334" />
         </shape>
     </item>
 </ripple>

@@ -39,12 +39,12 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:transitionName="elementSave"
+        android:transitionName="elementSaveVideo"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/btnMenuRepost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/btnMenuRepost"
@@ -67,24 +67,32 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/btnMenuInstagram"
+        android:id="@+id/btnMenuTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/btn_menu_instagram_round"
-        android:drawableStart="@drawable/ic_menu_instagram"
+        android:background="@drawable/btn_menu_tags_round"
+        android:drawableStart="@drawable/ic_menu_hashtag"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:text="Open Instagram"
+        android:text="Top hashtags"
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:transitionName="elementRepost"
+        android:transitionName="elementTags"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSaveThis" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="btnSaveThis,btnMenuTags,btnMenuRepost,btnMenuSaveVideo"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

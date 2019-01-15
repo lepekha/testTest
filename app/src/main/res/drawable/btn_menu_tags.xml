@@ -15,8 +15,7 @@
                 android:left="10dp"
                 android:right="10dp"
                 android:top="3dp" />
-            <corners android:radius="5dp" />
-            <solid android:color="#2ccf3d" />
+            <solid android:color="#f253b751" />
         </shape>
     </item>
 </ripple>

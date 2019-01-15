@@ -12,6 +12,7 @@ import com.inhelp.R
 import com.inhelp.view.main.main.FragmentMain
 import com.inhelp.view.main.save.FragmentSave
 import com.inhelp.view.main.reply.FragmentReply
+import com.inhelp.view.main.tags.FragmentTags
 import com.inhelp.view.main.watchlist.WatchlistFragment
 
 
@@ -23,8 +24,12 @@ class MainRouter(val context: Context) {
 
     lateinit var fragmentManager: FragmentManager
 
-    fun showStartScreen() {
+    fun goToMenu() {
         navigateTo(FragmentMain(), container)
+    }
+
+    fun goToMenu(view: View) {
+        navigateTo(FragmentMain(), container, view = view)
     }
 
     fun goToRootWatchlist() {
@@ -45,6 +50,10 @@ class MainRouter(val context: Context) {
 
     fun goToRepost(view: View) {
         navigateTo(FragmentReply(), container, view = view)
+    }
+
+    fun goToTags(view: View) {
+        navigateTo(FragmentTags(), container, view = view)
     }
 
     fun navigateTo(@NonNull fragment: androidx.fragment.app.Fragment, container: Int, addToBackStack: Boolean = true, view: View? = null) {
@@ -74,9 +83,12 @@ class MainRouter(val context: Context) {
         }
     }
 
-    fun back() {
+    fun back(): Boolean {
         if (fragmentManager.backStackEntryCount > 1) {
             fragmentManager.popBackStack()
+            return true
+        } else {
+            return false
         }
     }
 }

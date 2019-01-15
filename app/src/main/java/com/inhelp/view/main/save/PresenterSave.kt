@@ -28,7 +28,7 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
     private var mCurrentPhotoNumber: Int = 0
 
     fun onResume(){
-        if(instagramUrlData.isValidURL) {
+        if(instagramUrlData.isValidUrl) {
             getPhoto()
         }else{
             view?.showError()
@@ -48,7 +48,7 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
 
     fun pressPreviewItem(previewPosition: Int) {
         mCurrentPhotoNumber = previewPosition
-        view?.setPhoto(mPreviewPhotos[previewPosition])
+        view?.setPhoto(mPreviewPhotos[previewPosition], isFewPhoto = true)
     }
 
     fun pressSaveThis() = runBlocking {
@@ -65,12 +65,11 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
         view?.getCurrentActivity()?.toast("All photos was saved")
     }
 
-    fun getPhoto() = GlobalScope.launch(Dispatchers.Main) {
-        //        val image = instagramUrlData.getInstagramData().await()
+    private fun getPhoto() = GlobalScope.launch(Dispatchers.Main) {
         mPreviewPhotos = instagramUrlData.getPhotos().await()
-//        mLoadedBitmap = photos
-        if (mPreviewPhotos.count() > 1) view?.setPreviewPhotos(mPreviewPhotos)
-        view?.setPhoto(mPreviewPhotos.first())
+        val isFewPhoto = mPreviewPhotos.count() > 1
+        if (isFewPhoto) view?.setPreviewPhotos(mPreviewPhotos)
+        view?.setPhoto(mPreviewPhotos.first(), isFewPhoto = isFewPhoto)
     }
 
     fun getPermissionAndSavePhoto() {

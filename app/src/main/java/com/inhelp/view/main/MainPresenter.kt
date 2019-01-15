@@ -10,11 +10,16 @@ class MainPresenter constructor(val router: MainRouter) : BaseMvpPresenterImpl<M
     override fun attachView(view: MainView) {
         super.attachView(view)
         router.fragmentManager = (view.getCurrentActivity() as MainActivity).supportFragmentManager
-        router.showStartScreen()
+    }
+
+    fun showStartScreen(){
+        router.goToMenu()
     }
 
     fun backPress() {
-        router.back()
+        if(!router.back()){
+            view?.finishApplication()
+        }
     }
 
     fun pressWatchlist() {
@@ -27,7 +32,7 @@ class MainPresenter constructor(val router: MainRouter) : BaseMvpPresenterImpl<M
 
     fun openFragment(intExtra: Int) {
         when(intExtra){
-//            0 -> router.showStartScreen()
+//            0 -> router.goToMenu()
             1 -> router.goToSave()
         }
     }

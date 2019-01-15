@@ -1,14 +1,14 @@
 package com.inhelp.view.main.main
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.transition.AutoTransition
-import androidx.transition.TransitionManager
+import androidx.core.view.isVisible
 import com.inhelp.R
-import com.inhelp.utils.extension.launchApp
+import com.inhelp.utils.extension.onTransitionEnd
 import com.inhelp.view.mvp.BaseMvpFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
@@ -25,12 +25,9 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        btnSave.post { showComponents() }
-
-
 
         btnSaveThis.setOnClickListener {
             presenter.pressSave(it)
@@ -40,23 +37,8 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
             presenter.pressRepost(it)
         }
 
-        btnMenuInstagram.setOnClickListener {
-            getCurrentContext().launchApp("com.instagram.android")
+        btnMenuTags.setOnClickListener {
+            presenter.pressTags(it)
         }
-
-
     }
-
-
-    private fun showComponents(){
-        val constraintSet = ConstraintSet()
-        constraintSet.clone(getCurrentContext(), R.layout.fragment_main_end)
-
-        val autoTransition = AutoTransition()
-        autoTransition.duration = 700
-        TransitionManager.beginDelayedTransition(container, autoTransition)
-        constraintSet.applyTo(container)
-    }
-
-
 }

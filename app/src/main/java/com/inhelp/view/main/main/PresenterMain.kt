@@ -15,6 +15,10 @@ class PresenterMain constructor(val mainRouter: MainRouter) : BaseMvpPresenterIm
         mainRouter.goToRepost(view)
     }
 
+    fun pressTags(view: View) {
+        mainRouter.goToTags(view)
+    }
+
     fun goToWatchlist(){
         mainRouter.goToRootWatchlist()
     }

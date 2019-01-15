@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.inhelp.R
+import com.inhelp.utils.extension.launchApp
 import com.inhelp.view.mvp.BaseMvpFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -30,9 +34,7 @@ class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
         super.onViewCreated(view, savedInstanceState)
 
         btnAdd.setOnClickListener {
-            presenter.getPhoto()
-            groupError.visibility = View.GONE
-            pgLoad.visibility = View.VISIBLE
+            getCurrentContext().launchApp("com.instagram.android")
         }
         titleSave.setOnClickListener {
             presenter.onBackPress()
@@ -45,7 +47,8 @@ class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
             presenter.pressSaveAll()
         }
 
-        lstPreview.layoutManager = LinearLayoutManager(getCurrentContext(), LinearLayoutManager.HORIZONTAL, false)
+        lstPreview.layoutManager = LinearLayoutManager(getCurrentContext(), RecyclerView.HORIZONTAL, false)
+        lstPreview.setHasFixedSize(true)
     }
 
     override fun share(bit: Bitmap) {
@@ -56,28 +59,25 @@ class FragmentSave: BaseMvpFragment<ViewSave, PresenterSave>(), ViewSave {
         lstPreview.adapter = PreviewRvAdapter(items, getCurrentContext()){
             presenter.pressPreviewItem(it)
         }
-
-        btnSaveAll.visibility = View.VISIBLE
     }
 
-    override fun setPhoto(imageUrl: String) {
+    override fun setPhoto(imageUrl: String, isFewPhoto: Boolean) {
         Picasso.get().load(imageUrl).into(imgPhoto, object : Callback {
             override fun onSuccess() {
-                pgLoad.visibility = View.GONE
-                imgPhoto.visibility = View.VISIBLE
-                btnSaveThis.visibility = View.VISIBLE
+                pgLoad.isVisible = false
+                imgPhoto.isVisible = true
+                btnSaveThis.isVisible = true
+                groupPreview.isVisible = isFewPhoto
             }
 
             override fun onError(e: Exception?) {}
         })
-//        imgPhoto.setImageBitmap(image)
-
     }
 
 
     override fun showError() {
-        pgLoad.visibility = View.GONE
-        groupError.visibility = View.VISIBLE
+        pgLoad.isVisible = false
+        groupError.isVisible = true
     }
 
     override fun onResume() {

@@ -10,22 +10,17 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.IBinder
-import com.inhelp.utils.extension.getClipboard
-import com.inhelp.utils.extension.notification
 import com.inhelp.utils.extension.notificationManager
 import com.inhelp.view.customView.NewMessageNotification
 import com.inhelp.view.main.MainActivity
 import com.squareup.picasso.Picasso
 import org.jsoup.Jsoup
 import android.content.BroadcastReceiver
-import com.inhelp.utils.extension.saveBitmap
-import com.inhelp.view.customView.reply.RectangleReplyStyleImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import android.content.IntentFilter
-
-
+import com.inhelp.utils.extension.clipboard
 
 
 class ServiceSavePhoto : Service() {
@@ -50,7 +45,7 @@ class ServiceSavePhoto : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         mCM = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         mCM.addPrimaryClipChangedListener {
-            val newClip = this.getClipboard()
+            val newClip = this.clipboard
             doAsync {
                 onCopy(newClip)
             }.execute()

@@ -12,19 +12,25 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.inhelp.R
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.net.URL
 import java.util.concurrent.atomic.AtomicInteger
+import android.content.ClipData
 
 
-fun Context.getClipboard(): String {
-    val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    return clipboard.primaryClip?.getItemAt(0)?.text.toString()
-}
+var Context.clipboard: String
+    get() {
+        val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        return clipboard.primaryClip?.getItemAt(0)?.text.toString()
+    }
+    set(value) {
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("InHelp", value)
+        clipboard.primaryClip = clip
+    }
 
 fun Context?.toast(text: CharSequence, duration: Int = Toast.LENGTH_LONG) = this?.let {
     Toast.makeText(it, text, duration).show()
@@ -71,7 +77,7 @@ fun Context.launchApp(packageName: String) {
     this.startActivity(intent)
 }
 
-fun Context.createInstagramIntent(bitmap: Bitmap){
+fun Context.createInstagramIntent(bitmap: Bitmap) {
 //    val share = Intent(Intent.ACTION_SEND)
 //    share.type = "image/*"
 //    val uri = Uri.parse(this.saveBitmap(bitmap))
