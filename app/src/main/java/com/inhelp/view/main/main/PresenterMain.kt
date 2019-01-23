@@ -19,7 +19,7 @@ class PresenterMain constructor(val mainRouter: MainRouter) : BaseMvpPresenterIm
         mainRouter.goToTags(view)
     }
 
-    fun goToWatchlist(){
-        mainRouter.goToRootWatchlist()
+    fun pressSaveVideo(view: View){
+        mainRouter.goToLandImage()
     }
 }

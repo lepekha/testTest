@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.inhelp.view.customView.Image
+    <com.inhelp.view.customView.cropTool.CropTool
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#ccc"

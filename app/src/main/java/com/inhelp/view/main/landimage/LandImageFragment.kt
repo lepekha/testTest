@@ -1,4 +1,4 @@
-package com.inhelp.view.main.watchlist
+package com.inhelp.view.main.landimage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import com.inhelp.view.mvp.BaseMvpFragment
 import org.koin.android.ext.android.inject
 
 
-class WatchlistFragment : BaseMvpFragment<WatchlistView, WatchlistPresenter>(), WatchlistView {
+class LandImageFragment : BaseMvpFragment<LandImageView, LandImagePresenter>(), LandImageView {
     override fun backPress() {
 
     }
 
 
-    override val presenter: WatchlistPresenter by inject()
+    override val presenter: LandImagePresenter by inject()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

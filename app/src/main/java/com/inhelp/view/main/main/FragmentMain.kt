@@ -40,5 +40,9 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
         btnMenuTags.setOnClickListener {
             presenter.pressTags(it)
         }
+
+        btnMenuSaveVideo.setOnClickListener {
+            presenter.pressSaveVideo(it)
+        }
     }
 }

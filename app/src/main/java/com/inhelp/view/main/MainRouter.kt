@@ -5,7 +5,6 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentManager
-import androidx.transition.Fade
 import androidx.transition.TransitionInflater
 import androidx.transition.TransitionSet
 import com.inhelp.R
@@ -13,7 +12,7 @@ import com.inhelp.view.main.main.FragmentMain
 import com.inhelp.view.main.save.FragmentSave
 import com.inhelp.view.main.reply.FragmentReply
 import com.inhelp.view.main.tags.FragmentTags
-import com.inhelp.view.main.watchlist.WatchlistFragment
+import com.inhelp.view.main.landimage.LandImageFragment
 
 
 class MainRouter(val context: Context) {
@@ -32,8 +31,8 @@ class MainRouter(val context: Context) {
         navigateTo(FragmentMain(), container, view = view)
     }
 
-    fun goToRootWatchlist() {
-        navigateTo(WatchlistFragment(), container)
+    fun goToLandImage() {
+        navigateTo(LandImageFragment(), container)
     }
 
     fun goToSave() {

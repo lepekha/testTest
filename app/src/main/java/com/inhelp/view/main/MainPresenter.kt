@@ -23,7 +23,7 @@ class MainPresenter constructor(val router: MainRouter) : BaseMvpPresenterImpl<M
     }
 
     fun pressWatchlist() {
-        router.goToRootWatchlist()
+        router.goToLandImage()
     }
 
     override fun detachView() {
