@@ -33,11 +33,6 @@ class TagsRvAdapter(tagsList: ArrayList<Tags>, val context: Context, val listene
             context.clipboard = tags[position].text
             context.toast("Tags is copy", Toast.LENGTH_SHORT)
         }
-        holder.root.setOnLongClickListener { view ->
-            val data = ClipData.newPlainText("===", "===")
-            val shadowBuilder = View.DragShadowBuilder(view)
-            view.startDrag(data, shadowBuilder, view, 0)
-        }
     }
 
     fun setFilterList(tagsList: MutableList<Tags>){

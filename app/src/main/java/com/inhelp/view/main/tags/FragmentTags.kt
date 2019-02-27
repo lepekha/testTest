@@ -68,18 +68,7 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
         lstTags.setHasFixedSize(true)
         mTagsRvAdapter = TagsRvAdapter(presenter.tagsList, getCurrentContext()) {}
         lstTags?.adapter = mTagsRvAdapter
-        lstTags.setOnDragListener { v, event ->
-            when(event.action){
-                DragEvent.ACTION_DROP -> {
-                    val rectF = Rect()
-                    edFilter.getGlobalVisibleRect(rectF)
-                    if(rectF.contains(event.x.toInt(), event.y.toInt())){
-                        edFilter.setText(event.clipData.getItemAt(0).text.toString())
-                    }
-                }
-            }
-            true
-        }
+
     }
 
     override fun setFilterList(tagsFilter: MutableList<Tags>){
