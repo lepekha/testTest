@@ -2,10 +2,15 @@ package com.inhelp.view.main.tags
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Bundle
+import android.util.Log
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.contains
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +68,18 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
         lstTags.setHasFixedSize(true)
         mTagsRvAdapter = TagsRvAdapter(presenter.tagsList, getCurrentContext()) {}
         lstTags?.adapter = mTagsRvAdapter
+        lstTags.setOnDragListener { v, event ->
+            when(event.action){
+                DragEvent.ACTION_DROP -> {
+                    val rectF = Rect()
+                    edFilter.getGlobalVisibleRect(rectF)
+                    if(rectF.contains(event.x.toInt(), event.y.toInt())){
+                        edFilter.setText(event.clipData.getItemAt(0).text.toString())
+                    }
+                }
+            }
+            true
+        }
     }
 
     override fun setFilterList(tagsFilter: MutableList<Tags>){
@@ -72,4 +89,5 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
     override fun setVisiblePlaceholder(isVisible: Boolean) {
         txtPlaceholder.isVisible = isVisible
     }
+
 }

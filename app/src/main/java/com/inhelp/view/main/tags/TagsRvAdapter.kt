@@ -10,6 +10,9 @@ import com.inhelp.R
 import com.inhelp.utils.extension.clipboard
 import com.inhelp.utils.extension.toast
 import kotlinx.android.synthetic.main.element_tag.view.*
+import android.R.attr.data
+import android.content.ClipData
+
 
 class TagsRvAdapter(tagsList: ArrayList<Tags>, val context: Context, val listener:(position: Int) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -29,6 +32,11 @@ class TagsRvAdapter(tagsList: ArrayList<Tags>, val context: Context, val listene
         holder.root.setOnClickListener {
             context.clipboard = tags[position].text
             context.toast("Tags is copy", Toast.LENGTH_SHORT)
+        }
+        holder.root.setOnLongClickListener { view ->
+            val data = ClipData.newPlainText("===", "===")
+            val shadowBuilder = View.DragShadowBuilder(view)
+            view.startDrag(data, shadowBuilder, view, 0)
         }
     }
 
