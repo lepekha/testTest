@@ -34,6 +34,8 @@ class FragmentMain : BaseMvpFragment<ViewMain, PresenterMain>(), ViewMain {
         }
 
         btnMenuRepost.setOnClickListener{
+            getCurrentActivity().setTheme(R.style.NewTheme)
+            getCurrentActivity().recreate()
             presenter.pressRepost(it)
         }
 

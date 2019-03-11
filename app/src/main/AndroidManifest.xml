@@ -33,6 +33,8 @@
         </activity>
 
         <service android:name=".core.models.services.ServiceSavePhoto" />
+        <meta-data android:name="com.google.ar.core" android:value="optional" />
+
     </application>
 
 </manifest>
