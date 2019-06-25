@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+
+
     <com.inhelp.view.customView.cropTool.CropTool
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#ccc"
         android:paddingLeft="20dp"
         android:paddingBottom="40dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

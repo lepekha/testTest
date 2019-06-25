@@ -25,9 +25,15 @@ class PresenterMain constructor(val mainRouter: MainRouter) : BaseMvpPresenterIm
         RouteManager.goToSave()
     }
 
-    fun pressRepost() {
-        mainRouter.goToRepost()
+    fun pressRepost() = runBlocking  {
+//        mainRouter.goToRepost()
+
+
+
     }
+
+
+
 
     fun pressTags() {
         mainRouter.goToTags()
@@ -87,3 +93,4 @@ class PresenterMain constructor(val mainRouter: MainRouter) : BaseMvpPresenterIm
         return listOfAllImages
     }
 }
+

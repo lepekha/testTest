@@ -2,10 +2,15 @@ package com.inhelp.view.main.tags
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Bundle
+import android.util.Log
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.contains
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +67,7 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
         lstTags.layoutManager = LinearLayoutManager(getCurrentContext(), RecyclerView.VERTICAL, false)
         mTagsRvAdapter = TagsRvAdapter(presenter.tagsList, getCurrentContext()) {}
         lstTags?.adapter = mTagsRvAdapter
+
     }
 
     override fun setFilterList(tagsFilter: MutableList<Tags>){
@@ -71,4 +77,5 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
     override fun setVisiblePlaceholder(isVisible: Boolean) {
         txtPlaceholder.isVisible = isVisible
     }
+
 }
