@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_CLIPS" />
     <uses-permission android:name="android.permission.WRITE_CLIPS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:name=".MainApp"
@@ -33,6 +34,11 @@
         </activity>
 
         <service android:name=".core.models.services.ServiceSavePhoto" />
+
+        <service
+            android:name=".core.LogConsoleService"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>

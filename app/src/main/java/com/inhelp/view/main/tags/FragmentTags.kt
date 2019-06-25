@@ -60,7 +60,6 @@ class FragmentTags : BaseMvpFragment<ViewTags, PresenterTags>(), ViewTags {
 
     private fun initList(){
         lstTags.layoutManager = LinearLayoutManager(getCurrentContext(), RecyclerView.VERTICAL, false)
-        lstTags.setHasFixedSize(true)
         mTagsRvAdapter = TagsRvAdapter(presenter.tagsList, getCurrentContext()) {}
         lstTags?.adapter = mTagsRvAdapter
     }

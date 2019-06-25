@@ -1,5 +1,6 @@
 package com.inhelp.view.main
 
+import com.inhelp.core.models.data.Menu
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
 
 
@@ -10,6 +11,7 @@ class MainPresenter constructor(val router: MainRouter) : BaseMvpPresenterImpl<M
     override fun attachView(view: MainView) {
         super.attachView(view)
         router.fragmentManager = (view.getCurrentActivity() as MainActivity).supportFragmentManager
+        RouteManager.fragmentManager = (view.getCurrentActivity() as MainActivity).supportFragmentManager
     }
 
     fun showStartScreen(){

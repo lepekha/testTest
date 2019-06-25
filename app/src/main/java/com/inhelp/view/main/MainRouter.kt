@@ -55,6 +55,10 @@ class MainRouter(val context: Context) {
         navigateTo(FragmentTags(), container, view = view)
     }
 
+    fun goToTags() {
+        navigateTo(FragmentTags(), container)
+    }
+
     fun navigateTo(@NonNull fragment: androidx.fragment.app.Fragment, container: Int, addToBackStack: Boolean = true, view: View? = null) {
         val transaction = fragmentManager.beginTransaction()
 

@@ -34,7 +34,7 @@ class FragmentReply : BaseMvpFragment<ViewReply, PresenterReply>(), ViewReply {
         txtTitle.setOnClickListener {
             presenter.onBackPress()
         }
-        btnSaveThis.setOnClickListener {
+        btnRepostPhoto.setOnClickListener {
             presenter.pressRepost()
         }
     }
@@ -45,7 +45,7 @@ class FragmentReply : BaseMvpFragment<ViewReply, PresenterReply>(), ViewReply {
         imgPhoto.setImageBitmap(image)
         pgLoad.visibility = View.GONE
         imgPhoto.visibility = View.VISIBLE
-        btnSaveThis.visibility = View.VISIBLE
+        btnRepostPhoto.visibility = View.VISIBLE
     }
 
 

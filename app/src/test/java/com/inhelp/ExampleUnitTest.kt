@@ -1,7 +1,10 @@
 package com.inhelp
 
+import com.inhelp.utils.FormatNumber
+import com.inhelp.utils.format
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import java.math.BigDecimal
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,6 +14,11 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        assertEquals("5.00", 4.9999999999.format(2))
+    }
+
+    @Test
+    fun addition_isCorrect1() {
+        assertEquals("5.00", BigDecimal.valueOf(5.0034534534).format(2))
     }
 }

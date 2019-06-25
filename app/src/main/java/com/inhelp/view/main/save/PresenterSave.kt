@@ -9,6 +9,7 @@ import com.inhelp.utils.Utils
 import com.inhelp.utils.extension.saveToSD
 import com.inhelp.utils.extension.toast
 import com.inhelp.view.main.MainRouter
+import com.inhelp.view.main.RouteManager
 import com.inhelp.view.mvp.BaseMvpPresenterImpl
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -43,7 +44,7 @@ class PresenterSave constructor(private val mainRouter: MainRouter, private val 
     }
 
     override fun onBackPress() {
-        mainRouter.back()
+        RouteManager.goToMain()
     }
 
     fun pressPreviewItem(previewPosition: Int) {

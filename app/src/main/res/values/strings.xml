@@ -3,6 +3,10 @@
 
     <string name="new_message_notification_title_template">New message: %1$s</string>
 
+    <string name="menu_save_photo">Save photo</string>
+    <string name="menu_repost_photo">Repost photo</string>
+    <string name="menu_tags">Top hashtegs</string>
+
     <!-- TODO: remove this placeholder text -->
     <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
         dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
